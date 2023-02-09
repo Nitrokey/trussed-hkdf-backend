@@ -1,12 +1,12 @@
 //! Wrapper around [`trussed::virt`][] that provides clients with both the core backend and the [`HkdfBackend`](crate::HkdfBackend) backend.
 
-use crate::HkdfBackend;
+use crate::{HkdfBackend, HkdfExtension};
 
 use serde::{Deserialize, Serialize};
 use trussed::{
     api::{reply, request},
     backend,
-    serde_extensions::{ExtensionDispatch, ExtensionImpl},
+    serde_extensions::{ExtensionDispatch, ExtensionId, ExtensionImpl},
     service::ServiceResources,
     types::{Context, NoData},
     virt::{self, Filesystem, Ram, StoreProvider},
@@ -20,6 +20,11 @@ pub type Client<S, D = Dispatcher> = virt::Client<S, D>;
 pub struct Dispatcher;
 pub enum BackendId {
     Hkdf,
+}
+
+impl ExtensionId<HkdfExtension> for Dispatcher {
+    type Id = ExtensionIds;
+    const ID: ExtensionIds = ExtensionIds::Hkdf;
 }
 
 #[derive(Serialize, Deserialize)]
@@ -36,6 +41,12 @@ impl TryFrom<u8> for ExtensionIds {
         } else {
             Err(Error::InternalError)
         }
+    }
+}
+
+impl From<ExtensionIds> for u8 {
+    fn from(v: ExtensionIds) -> u8 {
+        v as u8
     }
 }
 

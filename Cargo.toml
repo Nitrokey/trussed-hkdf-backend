@@ -14,9 +14,17 @@ serde = { version = "1.0.152", default-features = false }
 sha2 = "0.9"
 trussed = { git = "https://github.com/trussed-dev/trussed.git", rev = "51477a4c5d22b7fbfe9d5fed137701764b2c86ec", features = ["serde-extensions"] }
 
+[dev-dependencies]
+
+env_logger = "0.10.0"
+hex-literal = "0.3.4"
+test-log = "0.2.11"
+hmac = "0.11.0"
+
 [features]
 
-virt = ["trussed/virt"]
+std = []
+virt = ["trussed/virt", "std"]
 
 log-all = []
 log-none = []

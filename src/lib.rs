@@ -128,7 +128,7 @@ pub struct HkdfExtractRequest {
 
 #[derive(Serialize, Deserialize)]
 pub struct HkdfExpandReply {
-    key: KeyId,
+    pub key: KeyId,
 }
 
 #[derive(Serialize, Deserialize)]
@@ -167,6 +167,8 @@ pub trait HkdfClient: ExtensionClient<HkdfExtension> {
         }))
     }
 }
+
+impl<C: ExtensionClient<HkdfExtension>> HkdfClient for C {}
 
 pub struct HkdfBackend;
 
@@ -222,7 +224,7 @@ fn extract<S: Store>(
         .transpose()?;
     let salt_ref = salt.as_deref().map(|d| &**d);
     let (prk, _) = Hkdf::<Sha256>::extract(salt_ref, &ikm);
-    assert_eq!(prk.len(), 256);
+    assert_eq!(prk.len(), 256 / 8);
     let key_id = keystore.store_key(
         req.storage,
         Secrecy::Secret,
@@ -236,7 +238,7 @@ fn expand<S: Store>(
     keystore: &mut ClientKeystore<S>,
 ) -> Result<HkdfExpandReply, Error> {
     let prk = keystore.load_key(Secrecy::Secret, None, &req.prk.0)?;
-    if !matches!(prk.kind, Kind::Symmetric(256)) {
+    if !matches!(prk.kind, Kind::Symmetric(32)) {
         error!("Attempt to use wrong key for HKDF expand");
         return Err(Error::ObjectHandleInvalid);
     }
