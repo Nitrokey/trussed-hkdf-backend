@@ -16,6 +16,8 @@ trussed = { git = "https://github.com/trussed-dev/trussed.git", rev = "51477a4c5
 
 [features]
 
+virt = ["trussed/virt"]
+
 log-all = []
 log-none = []
 log-info = []

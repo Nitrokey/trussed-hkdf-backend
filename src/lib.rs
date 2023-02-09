@@ -13,6 +13,9 @@ use trussed::{
     Error, Platform,
 };
 
+#[cfg(feature = "virt")]
+pub mod virt;
+
 #[cfg(feature = "delog")]
 delog::generate_macros!();
 
