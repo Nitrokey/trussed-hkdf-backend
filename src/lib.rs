@@ -40,6 +40,7 @@ impl Extension for HkdfExtension {
     type Reply = HkdfReply;
 }
 
+#[allow(clippy::large_enum_variant)]
 #[derive(Serialize, Deserialize)]
 pub enum HkdfRequest {
     Extract(HkdfExtractRequest),
@@ -184,7 +185,7 @@ impl ExtensionImpl<HkdfExtension> for HkdfBackend {
         request: &HkdfRequest,
         resources: &mut ServiceResources<P>,
     ) -> Result<HkdfReply, Error> {
-        let mut keystore = resources.keystore(&core_ctx)?;
+        let mut keystore = resources.keystore(core_ctx)?;
         Ok(match request {
             HkdfRequest::Extract(req) => extract(req, &mut keystore)?.into(),
             HkdfRequest::Expand(req) => expand(req, &mut keystore)?.into(),
@@ -199,7 +200,7 @@ fn get_mat<S: Store>(
     Ok(match req {
         KeyOrData::Data(d) => d.clone(),
         KeyOrData::Key(key_id) => {
-            let key_mat = keystore.load_key(Secrecy::Secret, None, &key_id)?;
+            let key_mat = keystore.load_key(Secrecy::Secret, None, key_id)?;
             if !matches!(key_mat.kind, Kind::Symmetric(..) | Kind::Shared(..)) {
                 warn!("Attempt to HKDF on a private key");
                 return Err(Error::MechanismInvalid);
@@ -214,13 +215,13 @@ fn get_mat<S: Store>(
 
 fn extract<S: Store>(
     req: &HkdfExtractRequest,
-    mut keystore: &mut ClientKeystore<S>,
+    keystore: &mut ClientKeystore<S>,
 ) -> Result<HkdfExtractReply, Error> {
-    let ikm = get_mat(&req.ikm, &mut keystore)?;
+    let ikm = get_mat(&req.ikm, keystore)?;
     let salt = req
         .salt
         .as_ref()
-        .map(|s| get_mat(s, &mut keystore))
+        .map(|s| get_mat(s, keystore))
         .transpose()?;
     let salt_ref = salt.as_deref().map(|d| &**d);
     let (prk, _) = Hkdf::<Sha256>::extract(salt_ref, &ikm);
