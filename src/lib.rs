@@ -1,3 +1,5 @@
+#![cfg_attr(not(feature = "std"), no_std)]
+
 use heapless_bytes::Bytes;
 use hkdf::Hkdf;
 use serde::{Deserialize, Serialize};
