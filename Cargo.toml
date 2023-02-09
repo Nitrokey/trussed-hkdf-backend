@@ -1,0 +1,25 @@
+[package]
+name = "trussed-hkdf-backend"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+delog = { version = "0.1.6", optional = true }
+heapless-bytes = "0.3.0"
+hkdf = "0.11"
+hmac = "0.11"
+log = "0.4.17"
+postcard = "0.7"
+serde = { version = "1.0.152", default-features = false }
+sha2 = "0.9"
+trussed = { git = "https://github.com/trussed-dev/trussed.git", rev = "51477a4c5d22b7fbfe9d5fed137701764b2c86ec", features = ["serde-extensions"] }
+
+[features]
+
+log-all = []
+log-none = []
+log-info = []
+log-debug = []
+log-warn = []
+log-error = []
+
