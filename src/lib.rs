@@ -11,12 +11,15 @@ use trussed::{
     backend::Backend,
     config::MAX_MEDIUM_DATA_LENGTH,
     key::{Kind, Secrecy},
-    serde_extensions::{Extension, ExtensionClient, ExtensionImpl, ExtensionResult},
+    serde_extensions::{Extension, ExtensionImpl},
     service::{ClientKeystore, Keystore, ServiceResources},
     store::Store,
     types::{CoreContext, KeyId, Location, MediumData, Message, NoData, ShortData},
     Error, Platform,
 };
+
+mod crypto_traits;
+pub use crypto_traits::HkdfClient;
 
 #[cfg(feature = "virt")]
 pub mod virt;
@@ -144,37 +147,6 @@ pub struct HkdfExpandRequest {
     pub len: usize,
     pub storage: Location,
 }
-
-pub trait HkdfClient: ExtensionClient<HkdfExtension> {
-    fn hkdf_extract(
-        &mut self,
-        ikm: KeyOrData<MAX_MEDIUM_DATA_LENGTH>,
-        salt: Option<KeyOrData<MAX_MEDIUM_DATA_LENGTH>>,
-        storage: Location,
-    ) -> ExtensionResult<'_, HkdfExtension, HkdfExtractReply, Self> {
-        self.extension(HkdfRequest::Extract(HkdfExtractRequest {
-            ikm,
-            salt,
-            storage,
-        }))
-    }
-    fn hkdf_expand(
-        &mut self,
-        prk: OkmId,
-        info: Message,
-        len: usize,
-        storage: Location,
-    ) -> ExtensionResult<'_, HkdfExtension, HkdfExpandReply, Self> {
-        self.extension(HkdfRequest::Expand(HkdfExpandRequest {
-            prk,
-            info,
-            len,
-            storage,
-        }))
-    }
-}
-
-impl<C: ExtensionClient<HkdfExtension>> HkdfClient for C {}
 
 pub struct HkdfBackend;
 
