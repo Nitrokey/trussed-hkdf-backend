@@ -1,7 +1,15 @@
+# Copyright (C) Nitrokey GmbH
+# SPDX-License-Identifier: CC0-1.0
+
 [package]
-name = "trussed-hkdf-backend"
+name = "trussed-hkdf"
+authors = ["Nitrokey GmbH <info@nitrokey.com>"]
 version = "0.1.0"
 edition = "2021"
+description = "Trussed backend implementing an HKDF extension"
+license = "Apache-2.0 OR MIT"
+rust-version = "1.66"
+keywords = ["trussed", "hkdf", "no-std"]
 
 [dependencies]
 delog = { version = "0.1.6", optional = true }
@@ -12,7 +20,7 @@ log = "0.4.17"
 postcard = "0.7"
 serde = { version = "1.0.152", default-features = false }
 sha2 = "0.9"
-trussed = { git = "https://github.com/trussed-dev/trussed.git", rev = "51477a4c5d22b7fbfe9d5fed137701764b2c86ec", features = ["serde-extensions"] }
+trussed = { version = "0.1.0", features = ["serde-extensions"]}
 
 [dev-dependencies]
 
@@ -32,4 +40,7 @@ log-info = []
 log-debug = []
 log-warn = []
 log-error = []
+
+[patch.crates-io]
+trussed = { git = "https://github.com/trussed-dev/trussed.git", rev = "51477a4c5d22b7fbfe9d5fed137701764b2c86ec" }
 

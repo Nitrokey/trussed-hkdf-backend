@@ -1,3 +1,6 @@
+// Copyright (C) Nitrokey GmbH
+// SPDX-License-Identifier: Apache-2.0 or MIT
+
 #![cfg(feature = "virt")]
 
 use heapless_bytes::Bytes;
@@ -6,7 +9,7 @@ use hkdf::Hkdf;
 use hmac::{Hmac, Mac, NewMac};
 use sha2::Sha256;
 use trussed::{client::HmacSha256, syscall, types::Location};
-use trussed_hkdf_backend::{virt::with_ram_client, HkdfClient, KeyOrData::*};
+use trussed_hkdf::{virt::with_ram_client, HkdfClient, KeyOrData::*};
 
 const SALT: &[u8] = &hex!("0011223344556677889900AABBCCDDEE");
 const IKM: &[u8] = &hex!("AABBCCDDEE0011223344556677889900");

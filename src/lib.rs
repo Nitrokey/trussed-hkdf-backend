@@ -1,3 +1,6 @@
+// Copyright (C) Nitrokey GmbH
+// SPDX-License-Identifier: Apache-2.0 or MIT
+
 #![cfg_attr(not(feature = "std"), no_std)]
 
 use heapless_bytes::Bytes;

@@ -1,9 +1,12 @@
+// Copyright (C) Nitrokey GmbH
+// SPDX-License-Identifier: Apache-2.0 or MIT
+
 #![cfg(feature = "virt")]
 
 ///! Test that the core backend is still reachable.
 ///! Tests imported from the trussed repo
 use trussed::{client::CertificateClient as _, syscall, try_syscall, types::Location::*};
-use trussed_hkdf_backend::virt;
+use trussed_hkdf::virt;
 
 #[test]
 fn certificate_client() {
