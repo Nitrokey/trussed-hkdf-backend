@@ -3,8 +3,9 @@
 
 #![cfg(feature = "virt")]
 
-///! Test that the core backend is still reachable.
-///! Tests imported from the trussed repo
+//! Test that the core backend is still reachable.
+//! Tests imported from the trussed repo
+
 use trussed::{client::CertificateClient as _, syscall, try_syscall, types::Location::*};
 use trussed_hkdf::virt;
 
