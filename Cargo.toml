@@ -42,5 +42,5 @@ log-warn = []
 log-error = []
 
 [patch.crates-io]
-trussed = { git = "https://github.com/trussed-dev/trussed.git", rev = "51477a4c5d22b7fbfe9d5fed137701764b2c86ec" }
-
+littlefs2 = { git = "https://github.com/trussed-dev/littlefs2.git", rev = "ebd27e49ca321089d01d8c9b169c4aeb58ceeeca" }
+trussed = { git = "https://github.com/trussed-dev/trussed.git", rev = "2a2b2091598b9ecd795966af42ab0766972f26da" }

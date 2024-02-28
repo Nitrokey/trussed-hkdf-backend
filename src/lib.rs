@@ -162,7 +162,7 @@ impl ExtensionImpl<HkdfExtension> for HkdfBackend {
         request: &HkdfRequest,
         resources: &mut ServiceResources<P>,
     ) -> Result<HkdfReply, Error> {
-        let mut keystore = resources.keystore(core_ctx)?;
+        let mut keystore = resources.keystore(core_ctx.path.clone())?;
         Ok(match request {
             HkdfRequest::Extract(req) => extract(req, &mut keystore)?.into(),
             HkdfRequest::Expand(req) => expand(req, &mut keystore)?.into(),
