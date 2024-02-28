@@ -6,7 +6,7 @@
 use heapless_bytes::Bytes;
 use hex_literal::hex;
 use hkdf::Hkdf;
-use hmac::{Hmac, Mac, NewMac};
+use hmac::{Hmac, Mac};
 use sha2::Sha256;
 use trussed::{client::HmacSha256, syscall, types::Location};
 use trussed_hkdf::{virt::with_ram_client, HkdfClient, KeyOrData::*};
@@ -38,6 +38,6 @@ fn extensions() {
         ))
         .key;
         let signed = syscall!(client.sign_hmacsha256(expanded, MSG)).signature;
-        mac.verify(&signed).unwrap();
+        mac.verify_slice(&signed).unwrap();
     });
 }

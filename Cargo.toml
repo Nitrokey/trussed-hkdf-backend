@@ -14,12 +14,12 @@ keywords = ["trussed", "hkdf", "no-std"]
 [dependencies]
 delog = { version = "0.1.6", optional = true }
 heapless-bytes = "0.3.0"
-hkdf = "0.11"
-hmac = "0.11"
+hkdf = "0.12"
+hmac = "0.12"
 log = "0.4.17"
 postcard = "0.7"
 serde = { version = "1.0.152", default-features = false }
-sha2 = "0.9"
+sha2 = { version = "0.10", default-features = false }
 trussed = { version = "0.1.0", features = ["serde-extensions"]}
 
 [dev-dependencies]
