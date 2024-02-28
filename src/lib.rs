@@ -31,7 +31,7 @@ delog::generate_macros!();
 #[macro_use]
 extern crate log;
 
-#[derive(Serialize, Deserialize)]
+#[derive(Clone, Copy, Debug, Serialize, Deserialize)]
 pub struct OkmId(KeyId);
 
 pub struct HkdfExtension;
