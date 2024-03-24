@@ -148,6 +148,7 @@ pub struct HkdfExpandRequest {
     pub storage: Location,
 }
 
+#[derive(Debug, Default)]
 pub struct HkdfBackend;
 
 impl Backend for HkdfBackend {

@@ -4,7 +4,7 @@
 [package]
 name = "trussed-hkdf"
 authors = ["Nitrokey GmbH <info@nitrokey.com>"]
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 description = "Trussed backend implementing an HKDF extension"
 license = "Apache-2.0 OR MIT"
