@@ -7,7 +7,15 @@ SPDX-License-Identifier: CC0-1.0
 
 `trussed-hkdf` is an extension and custom backend for [Trussed][] that provides an HKDF extension.
 
+> [!IMPORTANT]  
+> The `trussed-hkdf` crate providing the `HkdfExtension` has been moved into the [trussed-staging][] repository.
+> New releases are tagged there.
+> The `HkdfBackend` has been removed.
+> Use the `StagingBackend` provided by `trussed-staging` instead.
+> This repository is no longer maintained and archived.
+
 [Trussed]: https://github.com/trussed-dev/trussed
+[trussed-staging]: https://github.com/trussed-dev/trussed-staging
 
 ## License
 
